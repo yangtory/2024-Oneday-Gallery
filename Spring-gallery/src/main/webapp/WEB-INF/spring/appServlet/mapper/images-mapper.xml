@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tory.hello.dao.ImageDao">
+	<insert id="inserts" >
+		INSERT INTO tbl_images(
+		i_id, i_gid, i_origin_image, i_up_image
+		) VALUES
+		<foreach collection="images" item="VO" separator=", ">
+			(#{VO.i_id}, #{g_id}, #{VO.i_origin_image}, #{VO.i_up_image})
+		</foreach>
+	</insert>
+
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tory.hello.dao.GalleryDao">
+
+	<select id="selectAll">
+		SELECT * FROM tbl_gallerys
+	</select>
+
+	<insert id="insert" parameterType="GalleryVO">
+		<selectKey resultType="String" keyProperty="g_id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO tbl_gallerys(
+		g_id, g_author, g_password,
+		g_subject, g_content, 
+		g_origin_image, g_up_image)
+		VALUES(
+		#{g_id}, #{g_author}, #{g_password},
+		#{g_subject},#{g_content},
+		#{g_origin_image},#{g_up_image})
+	</insert>
+	
+</mapper>
