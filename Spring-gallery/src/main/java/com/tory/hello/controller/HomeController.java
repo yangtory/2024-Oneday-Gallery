@@ -44,6 +44,7 @@ public class HomeController {
 		return "layout";
 	}
 	
+	@Transactional
 	@RequestMapping(value="/insert", method=RequestMethod.POST)
 	public String insert(GalleryVO galleryVO,
 			@RequestParam("file") MultipartFile file,
@@ -54,7 +55,7 @@ public class HomeController {
 		
 		GalleryVO vo = null;
 		try {
-			// singleName 이 비어있지 않으면 1개 업로드,
+			// singleName 이 비어있으면 1개 업로드,
 			if(!singleName.isEmpty()) {
 				vo = galleryService.createGallery(galleryVO, file);
 			}
@@ -63,11 +64,11 @@ public class HomeController {
 			if(files.getFiles("multi").size() > 0) {
 				List<GalleryVO> multiVO = galleryService.createGallerys(galleryVO, files);
 			}
-//			model.addAttribute("GALLERY", vo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/";
+		model.addAttribute("BODY", "GALLERY_INSERT");
+		return "layout";
 	}
 	
 }
