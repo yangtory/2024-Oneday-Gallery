@@ -23,7 +23,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 	public FileUploadServiceImpl(ServletContext context) {
 		super();
 		this.context = context;
-		folder = "/app/upload";
+		folder =context.getRealPath("/static/images");
 	}
 
 	@Override

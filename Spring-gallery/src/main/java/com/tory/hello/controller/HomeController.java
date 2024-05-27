@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequestMapping(value="/")
 public class HomeController {
 	
 	private final GalleryService galleryService;
@@ -44,10 +45,9 @@ public class HomeController {
 		return "layout";
 	}
 	
-	@Transactional
 	@RequestMapping(value="/insert", method=RequestMethod.POST)
 	public String insert(GalleryVO galleryVO,
-			@RequestParam("file") MultipartFile file,
+			@RequestParam("multi") MultipartFile file,
 			MultipartHttpServletRequest files, Model model) {
 		// singleFileName  가져오기
 		log.debug("파일이름 {}", file.getOriginalFilename());
@@ -61,9 +61,11 @@ public class HomeController {
 			}
 			
 			// multifile 인 경우 여러개 업로드
-			if(files.getFiles("multi").size() > 0) {
-				List<GalleryVO> multiVO = galleryService.createGallerys(galleryVO, files);
-			}
+
+//            List<MultipartFile> multiFiles = files.getFiles("multi");
+            if (files.getFiles("multi").size() > 0) {
+                galleryService.createGallerys(galleryVO, files);
+            }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

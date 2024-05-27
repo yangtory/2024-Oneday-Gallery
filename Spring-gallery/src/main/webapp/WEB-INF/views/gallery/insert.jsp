@@ -5,12 +5,12 @@
 <c:set var="rootPath" value="${pageContext.request.contextPath}" />
 
 <h1>이미지 업로드</h1>
-<f:form enctype="multipart/form-data">
+<form enctype="multipart/form-data" method="POST">
 	<input type="text" placeholder="제목" name="g_subject">
 	<textarea rows="10" placeholder="내용" name="g_content"></textarea>
 	<div>
-		<input type="file" name="file" accept="image/*" > 
-		<input type="file" name="multi" accept="image/*" multiple>
+	<!-- 	<input type="file" name="file" accept="image/*" >  -->
+		<input type="file" name="multi" accept="image/*" multiple="multiple">
 	</div>
 	<div>
 		<img class="image" width="200px">
@@ -20,4 +20,4 @@
 	<input type="text" placeholder="Email" name="g_author">
 	<input type="password" name="g_password">
 	<input type="submit" value="저장">
-</f:form>
+</form>

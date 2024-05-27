@@ -33,6 +33,8 @@ public class GalleryServiceImpl implements GalleryService {
 	// single file
 	@Override
 	public GalleryVO createGallery(GalleryVO galleryVO, MultipartFile file) throws Exception {
+		// g_id uuid 로
+		galleryVO.setG_id(UUID.randomUUID().toString());
 		// galleryVO originname 에 받아온 파일 originalname setting
 		galleryVO.setG_origin_image(file.getOriginalFilename());
 		
@@ -40,8 +42,6 @@ public class GalleryServiceImpl implements GalleryService {
 		String fileName = uploadService.fileUpload(file) ;
 		galleryVO.setG_up_image(fileName);
 		
-		// g_id uuid 로
-		galleryVO.setG_id(UUID.randomUUID().toString());
 		
 		// insert 실행
 		int result = galleryDao.insert(galleryVO);
@@ -53,6 +53,7 @@ public class GalleryServiceImpl implements GalleryService {
 
 	// multi files table 2개 insert
 	@Override
+	@Transactional
 	public List<GalleryVO> createGallerys(GalleryVO galleryVO, MultipartHttpServletRequest files) throws Exception {
 		// g_id uuid 로 셋팅
 		galleryVO.setG_id(UUID.randomUUID().toString());
