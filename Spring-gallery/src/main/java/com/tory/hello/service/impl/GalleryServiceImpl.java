@@ -56,22 +56,22 @@ public class GalleryServiceImpl implements GalleryService {
 	@Transactional
 	public List<GalleryVO> createGallerys(GalleryVO galleryVO, MultipartHttpServletRequest files) throws Exception {
 		// g_id uuid 로 셋팅
-		galleryVO.setG_id(UUID.randomUUID().toString());
-		
-		// 기본 이미지 정보 "" 으로
-		galleryVO.setG_origin_image("");
-		galleryVO.setG_up_image("");
-		
-		// mapper 에서 selectKey 설정한 g_id 값 가져오기
+//		galleryVO.setG_id(UUID.randomUUID().toString());
+//		
+//		// 기본 이미지 정보 "" 으로
+//		galleryVO.setG_origin_image("");
+//		galleryVO.setG_up_image("");
+//		
+//		// mapper 에서 selectKey 설정한 g_id 값 가져오기
 		String i_gid = galleryVO.getG_id();
+//		
+//		// gallery insert 실행
+//		galleryDao.insert(galleryVO);
 		
-		// gallery insert 실행
-		galleryDao.insert(galleryVO);
-		
-		// resultnames 리스트 만들어서 multi업로드 실행해서 이름들 return 받기
+//		// resultnames 리스트 만들어서 multi업로드 실행해서 이름들 return 받기
 		List<ImageVO> resultNames = uploadService.filesUpload(files);
-		
-		// image insert 실행
+//		
+//		// image insert 실행
 		imageDao.inserts(i_gid, resultNames);
 
 		return null;

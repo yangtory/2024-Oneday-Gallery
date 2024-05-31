@@ -10,10 +10,6 @@
 	</select>
 
 	<insert id="insert" parameterType="GalleryVO">
-		<selectKey resultType="String" keyProperty="g_id"
-			order="AFTER">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
 		INSERT INTO tbl_gallerys(
 		g_id, g_author, g_password,
 		g_subject, g_content, 

@@ -47,12 +47,16 @@ public class HomeController {
 	
 	@RequestMapping(value="/insert", method=RequestMethod.POST)
 	public String insert(GalleryVO galleryVO,
-			@RequestParam("multi") MultipartFile file,
+//			@RequestParam("multi") MultipartFile file,
 			MultipartHttpServletRequest files, Model model) {
 		// singleFileName  가져오기
+		
+		List<MultipartFile> fileList = files.getFiles("multi");
+		
+		MultipartFile file = fileList.get(0);
 		log.debug("파일이름 {}", file.getOriginalFilename());
 		String singleName = file.getOriginalFilename();
-		
+	
 		GalleryVO vo = null;
 		try {
 			// singleName 이 비어있으면 1개 업로드,
@@ -63,7 +67,8 @@ public class HomeController {
 			// multifile 인 경우 여러개 업로드
 
 //            List<MultipartFile> multiFiles = files.getFiles("multi");
-            if (files.getFiles("multi").size() > 0) {
+            if (fileList.size() > 1) {
+            	log.debug("G_ID {}",galleryVO.getG_id());
                 galleryService.createGallerys(galleryVO, files);
             }
 		} catch (Exception e) {
